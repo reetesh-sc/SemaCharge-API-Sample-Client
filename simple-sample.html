@@ -10,14 +10,12 @@
 <script type="text/javascript">
 
 function getStations(){
-
-$.ajax({
-        url: "http://api.semacharge.com/stations",
+    $.ajax({
+        url: "http://127.0.0.1:5000/stations",
 		dataType: 'jsonp',
 		cache: true, // Disabled caching to remove timestamp parameter.
         success: function(data) {
-        			alert("hey!!!!");
-                    $.each(data.stations, function(i,stations){
+        			  $.each(data, function(i,stations){
                       $("#result").append(stations.name+"<br />");
                       if ( i == 3 ) return false;
                     });
@@ -27,16 +25,25 @@ $.ajax({
                 alert(textStatus);
                 alert(errorThrown);
         }
-});     
+}); 
+
+// $.getJSON("http://api.semacharge.com/stations?callback=?", 
+// 		function(data) {
+// 	alert("hey!!!!");
+//     				$.each(data.stations, function(i,stations){
+//    					$("#result").append(stations.name+"<br />");
+//       				if ( i == 3 ) return false;
+//     				});
+//   		}, cache: true);
 }
 
 </script>
 </head>
 <body>
   <div>
-    <input id="lat" type="textbox" value="39.0028984">
-    <input id="lng" type="textbox" value="-76.5372625">
-    <input type="button" value="Get Stations" onclick="getStations()">
+    <input id="lat" type="textbox" value="38.974176">
+    <input id="lng" type="textbox" value="-76.549674">
+    <button onclick="getStations()">Get Stations</button>
   </div>
 <div id="box">
         <div id="result"></div>
