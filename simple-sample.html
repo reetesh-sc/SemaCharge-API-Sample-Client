@@ -3,51 +3,68 @@
 <head>
 
 <title>Simple Sample SemaConnect</title>
-<link href="simple-style.css" rel="stylesheet" type="text/css" />
+
+<!-- using the latest jquery for our example  -->
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 
+<!-- Lets being with the Simple javascript -->
+
 <script type="text/javascript">
-
-function getStations(){
-    $.ajax({
-        url: "http://127.0.0.1:5000/stations",
-		dataType: 'jsonp',
-		cache: true, // Disabled caching to remove timestamp parameter.
-        success: function(data) {
-        			  $.each(data, function(i,stations){
-                      $("#result").append(stations.name+"<br />");
-                      if ( i == 3 ) return false;
-                    });
-                  },
-        error: function(jqXHR, textStatus, errorThrown){
-                alert("failed");
-                alert(textStatus);
-                alert(errorThrown);
-        }
-}); 
-
-// $.getJSON("http://api.semacharge.com/stations?callback=?", 
-// 		function(data) {
-// 	alert("hey!!!!");
-//     				$.each(data.stations, function(i,stations){
-//    					$("#result").append(stations.name+"<br />");
-//       				if ( i == 3 ) return false;
-//     				});
-//   		}, cache: true);
+ /* A simple Function for our OnClick action */
+ function getStations(){
+	 /* A Standard getJSON */
+	 $.getJSON("http://api.semacharge.com/stations?callback=?",
+		/* The success callback function 
+		which appends the data from response.  */
+		function(data) {
+ 	
+     				$.each(data, function(i,stations){
+     					$("#id").append("<br />"+stations.id);
+     					$("#name").append("<br />"+stations.name);
+       				if ( i == 3 ) return false;
+     				});
+   		});
 }
 
 </script>
+
+<!--  Simple CSS for displaying the results in boxes -->
+<style type="text/css">
+
+#BigBox {
+
+	width:600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.column {
+
+	text-align:center;
+	width:250px;
+	float:left;
+	border: medium;
+}
+
+</style>
+
 </head>
+
 <body>
-  <div>
-    <input id="lat" type="textbox" value="38.974176">
-    <input id="lng" type="textbox" value="-76.549674">
-    <button onclick="getStations()">Get Stations</button>
-  </div>
-<div id="box">
-        <div id="result"></div>
-        <div id="map_canvas"></div>
+	<div id="BigBox">
+  	<!-- Boxes to take input from the user.  -->
+	<div >
+    	<input id="lat" type="textbox" value="38.974176">
+    	<input id="lng" type="textbox" value="-76.549674">
+    	<button onclick="getStations()">Get Stations</button>
+  	</div>
+	
+	<!-- Boxes to display the results -->
+	<div id="box" >
+        <div id="id" class="column">id</div>
+        <div id="name" class="column">Name</div>
+   </div>
 </div>
 </body>
 </html>
