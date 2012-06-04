@@ -14,21 +14,25 @@
  /* A simple Function for our OnClick action */
  function getStations(){
 	 /* A Standard getJSON */
-	 $.getJSON("http://api.semacharge.com/stations?callback=?",
+	 
+	 var lat = document.getElementById("lat").value;
+	 var lng = document.getElementById("lng").value;
+	 var request = "http://api.semacharge.com/stations?callback=?&radius=10&lat="+lat+"&lng="+lng;	
+	 
+	 $.getJSON(request,
 		/* The success callback function 
 		which appends the data from response.  */
 		function(data) {
  	
-     				$.each(data, function(i,stations){
-     					$("#id").append("<br />"+stations.id);
-     					$("#name").append("<br />"+stations.name);
-       				if ( i == 3 ) return false;
-     				});
+     		$.each(data, function(i,stations){
+     		$("#id").append("<br />"+stations.id);
+     		$("#name").append("<br />"+stations.name);
+       		if ( i == 3 ) return false;
+     		});
    		});
 }
 
 </script>
-
 <!--  Simple CSS for displaying the results in boxes -->
 <style type="text/css">
 
@@ -48,15 +52,14 @@
 }
 
 </style>
-
 </head>
 
 <body>
 	<div id="BigBox">
   	<!-- Boxes to take input from the user.  -->
 	<div >
-    	<input id="lat" type="textbox" value="38.974176">
-    	<input id="lng" type="textbox" value="-76.549674">
+    	<input id="lat" type="text" value="38.974176">
+    	<input id="lng" type="text" value="-76.549674">
     	<button onclick="getStations()">Get Stations</button>
   	</div>
 	
